@@ -22,3 +22,13 @@ document.getElementById("site").textContent = params.get("site") || "this site";
 const [quote, author] = quotes[Math.floor(Math.random() * quotes.length)];
 document.getElementById("quote").textContent = `"${quote}"`;
 document.getElementById("author").textContent = `— ${author}`;
+
+document.getElementById("back").addEventListener("click", () => {
+  if (history.length > 1) {
+    history.back();
+  } else {
+    chrome.tabs.getCurrent((tab) => {
+      if (tab) chrome.tabs.remove(tab.id);
+    });
+  }
+});

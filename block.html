@@ -56,12 +56,15 @@
     display: inline-block;
     margin-top: 32px;
     padding: 11px 22px;
+    border: none;
     border-radius: 10px;
     background: linear-gradient(135deg, #667eea, #764ba2);
     color: white;
     text-decoration: none;
     font-size: 14px;
     font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
   }
 </style>
 </head>
@@ -74,7 +77,7 @@
       <p class="quote" id="quote"></p>
       <div class="author" id="author"></div>
     </div>
-    <a class="back" href="javascript:history.back()">← Go Back</a>
+    <button class="back" id="back">← Go Back</button>
   </div>
   <script src="block.js"></script>
 </body>
