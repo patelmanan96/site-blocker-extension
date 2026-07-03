@@ -25,12 +25,14 @@ function updateLabel(mode) {
       : "Only these sites will be allowed (one per line)";
 }
 
+saveBtn.disabled = true;
 chrome.storage.sync.get({ mode: "block", sites: [] }, (d) => {
   storedMode = d.mode;
   storedSites = d.sites;
   document.getElementById(d.mode === "whitelist" ? "mode-whitelist" : "mode-block").checked = true;
   sitesEl.value = d.sites.join("\n");
   updateLabel(d.mode);
+  saveBtn.disabled = false;
 });
 
 document.querySelectorAll('input[name="mode"]').forEach((el) => {
