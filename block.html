@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Blocked — Stay Focused</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+  }
+  .wrap {
+    max-width: 560px;
+    padding: 48px 40px;
+    text-align: center;
+  }
+  .icon { font-size: 48px; margin-bottom: 8px; }
+  h1 {
+    font-size: 26px;
+    margin: 0 0 6px;
+  }
+  .site {
+    color: #ffd166;
+    font-weight: 600;
+  }
+  .sub {
+    color: #cbd5e1;
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
+  .quote-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 28px 32px;
+    backdrop-filter: blur(6px);
+  }
+  .quote {
+    font-size: 20px;
+    line-height: 1.5;
+    font-style: italic;
+    margin: 0 0 10px;
+  }
+  .author {
+    font-size: 13px;
+    color: #ffd166;
+    letter-spacing: 0.5px;
+  }
+  .back {
+    display: inline-block;
+    margin-top: 32px;
+    padding: 11px 22px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="icon">🚧</div>
+    <h1>Blocked: <span class="site" id="site"></span></h1>
+    <div class="sub">This site is off-limits right now. Go build something instead.</div>
+    <div class="quote-card">
+      <p class="quote" id="quote"></p>
+      <div class="author" id="author"></div>
+    </div>
+    <a class="back" href="javascript:history.back()">← Go Back</a>
+  </div>
+  <script src="block.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Focus Blocker</title>
+<link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="card">
+    <h1>🎯 Focus Blocker</h1>
+
+    <div class="mode-switch">
+      <label class="mode-option">
+        <input type="radio" name="mode" value="block" id="mode-block" />
+        <span>Block these sites</span>
+      </label>
+      <label class="mode-option">
+        <input type="radio" name="mode" value="whitelist" id="mode-whitelist" />
+        <span>Only allow these sites</span>
+      </label>
+    </div>
+
+    <label class="list-label" id="list-label">Sites (one per line, e.g. facebook.com)</label>
+    <textarea id="sites" placeholder="facebook.com&#10;youtube.com&#10;reddit.com"></textarea>
+
+    <button id="save">Save Settings</button>
+    <div id="status"></div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
