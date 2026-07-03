@@ -19,6 +19,11 @@ const quotes = [
 const params = new URLSearchParams(location.search);
 document.getElementById("site").textContent = params.get("site") || "this site";
 
+if (params.get("reason") === "adult") {
+  document.querySelector(".sub").textContent =
+    "This category is permanently blocked and can't be changed from settings.";
+}
+
 const [quote, author] = quotes[Math.floor(Math.random() * quotes.length)];
 document.getElementById("quote").textContent = `"${quote}"`;
 document.getElementById("author").textContent = `— ${author}`;

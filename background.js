@@ -1,17 +1,39 @@
 let mode = "block";
-let sites = [];
+let userSites = [];
+let adultSet = new Set();
 
-function load() {
+async function loadAdultList() {
+  try {
+    const res = await fetch(chrome.runtime.getURL("adult-sites.json"));
+    adultSet = new Set(await res.json());
+  } catch (e) {
+    console.error("Focus Blocker: failed to load adult site list", e);
+  }
+}
+loadAdultList();
+
+function loadSettings() {
   chrome.storage.sync.get({ mode: "block", sites: [] }, (d) => {
     mode = d.mode;
-    sites = d.sites;
+    userSites = d.sites;
   });
 }
-load();
-chrome.storage.onChanged.addListener(load);
+loadSettings();
+chrome.storage.onChanged.addListener(loadSettings);
 
-function hostMatches(hostname) {
-  return sites.some((s) => hostname === s || hostname.endsWith("." + s));
+// Walks hostname labels (e.g. a.b.example.com -> b.example.com -> example.com)
+// so subdomains of a listed domain are matched, and Set lookups stay O(1)
+// regardless of list size.
+function hostInList(hostname, set) {
+  const parts = hostname.split(".");
+  for (let i = 0; i < parts.length - 1; i++) {
+    if (set.has(parts.slice(i).join("."))) return true;
+  }
+  return false;
+}
+
+function hostInArray(hostname, arr) {
+  return arr.some((s) => hostname === s || hostname.endsWith("." + s));
 }
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
@@ -24,10 +46,21 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   }
   if (!/^https?:$/.test(url.protocol)) return;
 
+  // Adult content is always blocked, in every mode, and cannot be overridden.
+  if (hostInList(url.hostname, adultSet)) {
+    chrome.tabs.update(tabId, {
+      url:
+        chrome.runtime.getURL("block.html") +
+        "?site=" + encodeURIComponent(url.hostname) +
+        "&reason=adult",
+    });
+    return;
+  }
+
   const isBlocked =
     mode === "block"
-      ? hostMatches(url.hostname)
-      : sites.length > 0 && !hostMatches(url.hostname);
+      ? hostInArray(url.hostname, userSites)
+      : userSites.length > 0 && !hostInArray(url.hostname, userSites);
 
   if (isBlocked) {
     chrome.tabs.update(tabId, {
