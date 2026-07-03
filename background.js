@@ -10,7 +10,12 @@ async function loadAdultList() {
     console.error("Focus Blocker: failed to load adult site list", e);
   }
 }
-loadAdultList();
+
+// MV3 service workers are killed after ~30s idle and respawn on the next
+// navigation event. Without awaiting this, a request that arrives right at
+// wake-up would race the fetch/parse of the (large) adult list and get
+// silently let through. Every listener below awaits this same promise.
+let adultListReady = loadAdultList();
 
 function loadSettings() {
   chrome.storage.sync.get({ mode: "block", sites: [] }, (d) => {
@@ -36,7 +41,7 @@ function hostInArray(hostname, arr) {
   return arr.some((s) => hostname === s || hostname.endsWith("." + s));
 }
 
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   if (changeInfo.status !== "loading" || !tab.url) return;
   let url;
   try {
@@ -45,6 +50,8 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     return;
   }
   if (!/^https?:$/.test(url.protocol)) return;
+
+  await adultListReady;
 
   // Adult content is always blocked, in every mode, and cannot be overridden.
   if (hostInList(url.hostname, adultSet)) {
