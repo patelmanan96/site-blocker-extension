@@ -9,7 +9,7 @@ const confirmBtn = document.getElementById("confirm-btn");
 const cancelBtn = document.getElementById("cancel-btn");
 const confirmPhraseLabel = document.getElementById("confirm-phrase-label");
 
-const WAIT_SECONDS = 15;
+const WAIT_SECONDS = 30;
 const CONFIRM_PHRASE = "TURN OFF";
 confirmPhraseLabel.textContent = CONFIRM_PHRASE;
 
