@@ -104,3 +104,62 @@ button:hover {
   color: #2e7d32;
   min-height: 14px;
 }
+
+.confirm-panel {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #fff4e5;
+  border: 1px solid #f3c98b;
+}
+
+.confirm-panel.hidden {
+  display: none;
+}
+
+.confirm-warning {
+  margin: 0 0 8px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #7a4a00;
+}
+
+#confirm-input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #e0b877;
+  font-size: 13px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+#confirm-input:disabled {
+  background: #f2ede3;
+  cursor: not-allowed;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.confirm-actions button {
+  margin-top: 0;
+  flex: 1;
+}
+
+#confirm-btn {
+  background: linear-gradient(135deg, #e65100, #bf360c);
+}
+
+#confirm-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cancel-btn {
+  background: #e0e0e0 !important;
+  color: #333 !important;
+}

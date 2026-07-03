@@ -27,6 +27,15 @@
 
     <button id="save">Save Settings</button>
     <div id="status"></div>
+
+    <div id="confirm-panel" class="confirm-panel hidden">
+      <p class="confirm-warning">⚠️ This reduces blocking. Wait <strong><span id="countdown">15</span>s</strong>, then type <strong id="confirm-phrase-label"></strong> below to confirm.</p>
+      <input type="text" id="confirm-input" disabled />
+      <div class="confirm-actions">
+        <button id="cancel-btn" class="cancel-btn">Cancel</button>
+        <button id="confirm-btn" disabled>Confirm Change</button>
+      </div>
+    </div>
   </div>
   <script src="popup.js"></script>
 </body>

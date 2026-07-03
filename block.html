@@ -47,6 +47,14 @@
     padding: clamp(28px, 5vh, 56px) clamp(24px, 6vw, 64px);
     backdrop-filter: blur(6px);
   }
+  .addressee {
+    font-size: clamp(14px, 1.6vw, 18px);
+    color: #ffd166;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin: 0 0 clamp(6px, 1vh, 10px);
+    text-transform: uppercase;
+  }
   .quote {
     font-size: clamp(24px, 3.4vw, 40px);
     line-height: 1.5;
@@ -96,6 +104,7 @@
     <h1>Blocked: <span class="site" id="site"></span></h1>
     <div class="sub">This site is off-limits right now. Go build something instead.</div>
     <div class="quote-card">
+      <div class="addressee">Listen up, Manan</div>
       <p class="quote" id="quote"></p>
       <div class="author" id="author"></div>
     </div>
