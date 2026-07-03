@@ -6,6 +6,7 @@ async function loadAdultList() {
   try {
     const res = await fetch(chrome.runtime.getURL("adult-sites.json"));
     adultSet = new Set(await res.json());
+    console.log(`Focus Blocker: adult site list loaded (${adultSet.size} domains)`);
   } catch (e) {
     console.error("Focus Blocker: failed to load adult site list", e);
   }
